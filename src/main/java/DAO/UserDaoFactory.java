@@ -13,11 +13,14 @@ public class UserDaoFactory {
         Properties properties = PropertyReader.getProperties();
         assert properties != null;
         String typeOfDao = properties.getProperty("daotype");
-        UserDAO userDAO = new UserHibernateDAO();
-        switch (typeOfDao) {
+            switch (typeOfDao) {
+                case "hibernate": {
+                    return new UserHibernateDAO();
+                }
                 case "jdbc":
-                    userDAO = new UserJdbcDAO(DBHelper.getMySqlConnectionJDBC());
+                    return new UserJdbcDAO(DBHelper.getMySqlConnectionJDBC());
+                default:
+                    throw new IllegalStateException("Ошибка выбора ДАО");
             }
-        return userDAO;
     }
 }
