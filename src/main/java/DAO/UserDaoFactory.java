@@ -3,6 +3,9 @@ package DAO;
 import util.DBHelper;
 import util.PropertyReader;
 
+import javax.jws.soap.SOAPBinding;
+import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 
 public class UserDaoFactory {
@@ -12,9 +15,9 @@ public class UserDaoFactory {
         String typeOfDao = properties.getProperty("daotype");
         UserDAO userDAO = new UserHibernateDAO();
         switch (typeOfDao) {
-            case "jdbc":
-                userDAO = new UserJdbcDAO(DBHelper.getMySqlConnectionJDBC());
-        }
+                case "jdbc":
+                    userDAO = new UserJdbcDAO(DBHelper.getMySqlConnectionJDBC());
+            }
         return userDAO;
     }
 }
